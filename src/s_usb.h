@@ -27,12 +27,12 @@ struct s_usb_device {
   char *productName;
 };
 
-struct s_usb_device *s_usb_create_device(int vendorId, char *vendorName, int productId, char *productName);
-void s_usb_destroy(struct s_usb_device *device);
+struct s_usb_device *s_usb_create_device(int, char *, int, char *);
+void s_usb_destroy(struct s_usb_device *);
 const char *s_usb_error_msg(void);
 
-int s_usb_send_request(struct s_usb_device *device, int request, int data, char* r_buffer, int r_buffer_size);
-int s_usb_send_data_short(struct s_usb_device *device, int request, int data, char* r_buffer, int r_buffer_size);
-int s_usb_send_data(struct s_usb_device *device, int request, int data, char* w_buffer);
+int s_usb_send_request(struct s_usb_device *, int, int, char*, int);
+int s_usb_send_data_short(struct s_usb_device *, int, int, char*, int);
+int s_usb_send_data(struct s_usb_device *, int, int, char*);
 
 #endif

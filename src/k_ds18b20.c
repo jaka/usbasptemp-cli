@@ -9,12 +9,12 @@ int kds_configure(struct s_usb_device *device, int sensor, int cfg) {
   if ( cfg < 0 || cfg > 3 )
     return KDS_ERANGE;
 
-  req = (sensor | (cfg << 6)) & 0xff; 
+  req = (sensor | (cfg << 6)) & 0xff;
 
   r_bytes = s_usb_send_request(device, USB_CONFIG, req, (char*)&r_buffer, sizeof(r_buffer));
   if ( r_bytes < 1 )
     return KDS_ERROR;
-  
+
   return 0;
 }
 
@@ -67,7 +67,7 @@ int kds_measure(struct s_usb_device *device) {
     return KDS_DEVBUSY;
 
   return KDS_ERROR;
-}  
+}
 
 int kds_read_temperature(struct s_usb_device *device, int sensor, int *temperature) {
 
@@ -78,7 +78,7 @@ int kds_read_temperature(struct s_usb_device *device, int sensor, int *temperatu
   r_bytes = s_usb_send_request(device, USB_READ_TEMP, sensor, (char*)&r_buffer, sizeof(r_buffer));
   if ( r_bytes < 0 )
     return KDS_EUSB;
- 
+
   if ( r_bytes != DS18X20_SP_SIZE )
     return KDS_ERROR;
 
@@ -120,14 +120,14 @@ int kds_read_rom(struct s_usb_device *device, int sensor, char *rom) {
   r_bytes = s_usb_send_request(device, USB_READ_ROM, sensor, (char*)&r_buffer, sizeof(r_buffer));
   if ( r_bytes < 0 )
     return KDS_EUSB;
-      
+
   if ( r_bytes != OW_ROMCODE_SIZE )
     return KDS_ERROR;
 
   /* Check CRC */
   if ( r_buffer[OW_ROMCODE_SIZE - 1] != lsb_crc8(&r_buffer[0], OW_ROMCODE_SIZE - 1, DS18X20_GENERATOR) )
     return KDS_EBADCRC;
-        
+
   for ( r_bytes = 0; r_bytes < OW_ROMCODE_SIZE; r_bytes++ ) {
     rom[r_bytes] = r_buffer[r_bytes];
   }

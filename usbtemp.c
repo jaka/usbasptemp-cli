@@ -56,7 +56,7 @@ int applet_kds_config(struct applet_arg *arg) {
   }
   if ( rv == KDS_ERANGE )
     fprintf(stderr, "Invalid argument!\n");
-  else 
+  else
     fprintf(stderr, "Error %d!\n", rv);
 
   return 1;
@@ -85,7 +85,7 @@ int applet_kds_measure(struct applet_arg *arg) {
   }
   if ( rv == KDS_DEVBUSY )
     fprintf(stderr, "Device busy!\n");
-  else 
+  else
     fprintf(stderr, "Error %d!\n", rv);
 
   return 1;
@@ -126,11 +126,11 @@ int applet_kds_modeset(struct applet_arg *arg) {
     return 1;
   }
 
-  device = (struct s_usb_device *)arg->u;  
+  device = (struct s_usb_device *)arg->u;
   r_bytes = s_usb_send_request(device, USB_SETMODE, cfg, (char*)&r_buffer, sizeof(r_buffer));
   if ( r_bytes < 1 )
     return 1;
-  
+
   printf("Mode set: %d\n", (int)r_buffer[0]);
 
   return 0;
@@ -189,7 +189,7 @@ int applet_kds_readtemp(struct applet_arg *arg) {
   for ( cur_sensor = 0; cur_sensor < sensors; cur_sensor++ ) {
     if ( kds_read_temperature(device, cur_sensor, &T) == 0 )
       printf("S:%d T: %.2f °C\n", cur_sensor, (float)(T)/16);
-    else 
+    else
       fprintf(stderr, "S:%d not present.\n", cur_sensor);
   }
 

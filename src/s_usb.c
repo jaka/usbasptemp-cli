@@ -16,9 +16,9 @@ static int s_usbGetDescriptorString(usb_dev_handle *dev, int index, int langid, 
   int r_bytes, i;
 
   /* Make standard request GET_DESCRIPTOR with type string and given index. */
-  r_bytes = usb_control_msg(dev, 
-      USB_TYPE_STANDARD | USB_RECIP_DEVICE | USB_ENDPOINT_IN, 
-      USB_REQ_GET_DESCRIPTOR, (USB_DT_STRING << 8) + index, langid, 
+  r_bytes = usb_control_msg(dev,
+      USB_TYPE_STANDARD | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
+      USB_REQ_GET_DESCRIPTOR, (USB_DT_STRING << 8) + index, langid,
       r_buffer, sizeof(r_buffer), 1000);
 
   if (r_bytes < 0)
@@ -130,21 +130,21 @@ const char *s_usb_error_msg(void) {
 
 int s_usb_send_request(struct s_usb_device *device, int request, int data, char* r_buffer, int r_buffer_size) {
 
-  return usb_control_msg(device->handle, 
-      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, 
+  return usb_control_msg(device->handle,
+      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
       request, data, 0, r_buffer, r_buffer_size, S_USB_TIMEOUT);
 }
 
 int s_usb_send_data_short(struct s_usb_device *device, int request, int data, char* r_buffer, int r_buffer_size) {
 
-  return usb_control_msg(device->handle, 
-      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, 
+  return usb_control_msg(device->handle,
+      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
       request, data & 0xffff, (data >> 16) & 0xffff, r_buffer, r_buffer_size, S_USB_TIMEOUT);
 }
 
 int s_usb_send_data(struct s_usb_device *device, int request, int data, char* w_buffer) {
 
-  return usb_control_msg(device->handle, 
-      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT, 
+  return usb_control_msg(device->handle,
+      USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
       request, data, 0, w_buffer, strlen(w_buffer) + 1, S_USB_TIMEOUT);
 }

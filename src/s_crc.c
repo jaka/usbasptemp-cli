@@ -6,7 +6,7 @@ char msb_crc8(char* data_in, unsigned int len, const unsigned char generator) {
   unsigned int bit_counter;
   char crc = 0;
 
-  for (i = 0; i < len; i++) {
+  for ( i = 0; i < len; i++ ) {
     crc ^= *(data_in + i);
     bit_counter = 8;
     do {
@@ -15,7 +15,7 @@ char msb_crc8(char* data_in, unsigned int len, const unsigned char generator) {
       else
         crc <<= 1;
       bit_counter--;
-    } while (bit_counter > 0);
+    } while ( bit_counter > 0 );
   }
   return crc;
 }
@@ -26,7 +26,7 @@ char lsb_crc8(char *data_in, unsigned int len, const unsigned char generator) {
   unsigned int bit_counter;
   char crc = 0;
 
-  for (i = 0; i < len; i++) {
+  for ( i = 0; i < len; i++ ) {
     crc ^= *(data_in + i);
     bit_counter = 8;
     do {
@@ -35,7 +35,7 @@ char lsb_crc8(char *data_in, unsigned int len, const unsigned char generator) {
       else
         crc = (crc >> 1) & 0x7f;
       bit_counter--;
-    } while (bit_counter > 0);
+    } while ( bit_counter > 0 );
   }
   return crc;
 }

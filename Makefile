@@ -1,4 +1,4 @@
-CC		?= cc
+CC	?= cc
 STRIP	?= strip
 
 OPTS	:= -O2

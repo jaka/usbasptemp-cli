@@ -1,8 +1,8 @@
 # CLI interface for DS18X20 temperature probe 
 
-### Istallation
+### Installation
 
-Make sure you have the following packages: __gcc__, __libusb-dev__ and __make__ installed. Otherwise run `sudo apt-get install gcc libusb-dev make` or similar command.
+Make sure you have the following packages installed: __gcc__, __libusb-dev__ and __make__ installed. Otherwise run `sudo apt-get install gcc libusb-dev make` or similar command.
 
 Then, build binary:
 
@@ -21,10 +21,10 @@ sudo udevadm trigger
 
 ### Usage
 
-To print sensors' 64-bit unique registration numbers, issue
+To print connected sensors' 64-bit unique registration numbers, issue
 `./usbtemp rom`
 
-To obtain a temperature first start measurement `./usbtemp measure` and then read the temperature `./usbtemp temp`.
+To obtain a temperature first start measurement `./usbtemp measure` and after one second read the temperature `./usbtemp temp`.
 
 ```
 USBtemp CLI 2016

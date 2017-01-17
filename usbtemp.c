@@ -197,12 +197,12 @@ int applet_kds_readtemp(struct applet_arg *arg) {
 }
 
 struct applet applets[] = {
-  { "config", applet_kds_config, "[sensor] [0-3]", "Set precision of measurement representation of chosen sensor: 0 = 9 bit ... 3 = 12 bit." },
+  { "config", applet_kds_config, "[sensor] [0-3]", "Set precision of measurement representation of chosen sensor [sensor]: 0 = 9 bit ... 3 = 12 bit." },
   { "detect", applet_kds_detect, "", "Detect DS18X20 sensors on 1W bus" },
-  { "getmode", applet_kds_modeget, "", NULL },
-  { "measure", applet_kds_measure, "", NULL },
+  { "getmode", applet_kds_modeget, "", "Get probe mode" },
+  { "measure", applet_kds_measure, "", "Start measurement process"},
   { "rom", applet_kds_readrom, "[?sensor]", "Display ROM (sensor serial number) from chosen sensor (if passed [sensor]) or from all." },
-  { "setmode", applet_kds_modeset, "[mode: 0|1]", NULL },
+  { "setmode", applet_kds_modeset, "[mode: 0|1]", "Set probe mode" },
   { "temp", applet_kds_readtemp, "[?sensor]", "Display temperature from chosen sensor (if passed [sensor]) or from all." },
   { NULL, NULL, NULL, NULL }
 };

@@ -2,7 +2,7 @@
 
 ### Installation
 
-Make sure you have the following packages installed: __gcc__, __libusb-dev__ and __make__ installed. Otherwise run `sudo apt-get install gcc libusb-dev make` or similar command.
+Make sure you have the following packages installed: __gcc__, __libusb-dev__ and __make__ . Otherwise run `sudo apt-get install gcc libusb-dev make` or similar command.
 
 Then, build binary:
 
@@ -12,7 +12,7 @@ cd usbtemp-cli/
 make
 ```
 
-To enable users access USBasp v2.0 DS18X20 temperature probe run commands:
+To enable users from group `users` access USBasp v2.0 DS18X20 temperature probe run commands:
 
 ```
 echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", GROUP="users", MODE="0666"' | sudo tee /etc/udev/rules.d/60-atmelusb.rules

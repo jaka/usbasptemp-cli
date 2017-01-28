@@ -207,9 +207,9 @@ struct applet applets[] = {
   { NULL, NULL, NULL, NULL }
 };
 
-static int str_match(const char *a, const char *b) {
+static unsigned int str_match(const char *a, const char *b) {
 
-  int i;
+  unsigned int i;
 
   i = 0;
   while ( *(a + i) && *(b + i) && *(a + i) == *(b + i) )
@@ -221,17 +221,21 @@ static int str_match(const char *a, const char *b) {
 static int find_applet(int argc, char **argv, struct applet **sel_applet) {
 
   struct applet *cur_command;
-  int cur_match, sel_match;
+  unsigned int cur_match, sel_match, len;
+
+  *sel_applet = NULL;
 
   if ( argc < 2 )
     return -1;
 
   sel_match = 0;
-  *sel_applet = NULL;
+  len = strlen(argv[1]);
 
   for ( cur_command = applets; cur_command->name; cur_command++ ) {
 
-    if ( (cur_match = str_match(cur_command->name, argv[1])) == 0 )
+    cur_match = str_match(cur_command->name, argv[1]);
+
+    if ( cur_match != len )
       continue;
 
     if ( cur_match > sel_match ) {
@@ -239,6 +243,7 @@ static int find_applet(int argc, char **argv, struct applet **sel_applet) {
       *sel_applet = cur_command;
     }
     else if ( cur_match == sel_match )
+      /* We have found another match (command): ambiguity, break! */
       return -1;
 
   }

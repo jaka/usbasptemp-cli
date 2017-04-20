@@ -26,11 +26,14 @@
 #define USB_SETMODE	7
 #define USB_GETMODE	8
 
+#define USB_PRECISION_GET	61
+
 #define OW_ROMCODE_SIZE 8
 #define DS18X20_SP_SIZE 9
 #define DS18X20_GENERATOR	0x8c
 
 int kds_configure(struct s_usb_device *, int, int);
+int kds_configure_get(struct s_usb_device *, int, int *);
 int kds_detect_sensors(struct s_usb_device *);
 int kds_destroy_device(struct s_usb_device *);
 int kds_get_device(struct s_usb_device **);

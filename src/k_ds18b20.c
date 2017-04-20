@@ -18,6 +18,18 @@ int kds_configure(struct s_usb_device *device, int sensor, int cfg) {
   return 0;
 }
 
+int kds_configure_get(struct s_usb_device *device, int sensor, int *cfg) {
+
+  int r_bytes;
+  char r_buffer[16];
+
+  r_bytes = s_usb_send_request(device, USB_PRECISION_GET, sensor, (char*)&r_buffer, sizeof(r_buffer));
+  if (r_bytes != 1)
+    return KDS_ERROR;
+  *cfg = (int)r_buffer[0];
+  return 0;
+}
+
 int kds_detect_sensors(struct s_usb_device *device) {
 
   int r_bytes;

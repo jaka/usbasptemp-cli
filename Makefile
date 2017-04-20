@@ -1,22 +1,22 @@
+OPTS	:= -O2 -s
+CFLAGS	+= -Isrc/ -Wall -Werror -Wextra -fdata-sections -ffunction-sections -fno-strict-aliasing -std=c90
+LDFLAGS	+= -Wl,--gc-sections -lusb
+SFLAGS	:= -R .comment -R .gnu.version -R .note -R .note.ABI-tag
+
 CC	?= cc
 STRIP	?= strip
 
-OPTS	:= -O2
-CFLAGS	+= -Isrc -Wall -Wextra -s -ffunction-sections -fdata-sections -fno-strict-aliasing
-LDFLAGS	+= -Wl,--gc-sections -lusb
-SFLAGS	:= -s -R .comment -R .gnu.version -R .note -R .note.ABI-tag
-
 SOURCES	:= $(wildcard src/*.c)
 OBJECTS	:= $(patsubst %.c,%.o,$(SOURCES))
-TARGETS := usbtemp
+TARGET := usbtemp
 
-all: $(OBJECTS) $(TARGETS)
+all: $(OBJECTS) $(TARGET)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OPTS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(OPTS) -c -o $@ $<
 
-$(TARGETS): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OPTS) -o $@ $@.c $^ $(LDFLAGS)
+$(TARGET): $(OBJECTS) $(TARGET).c
+	$(CC) $(CFLAGS) $(OPTS) -o $@ $^ $(LDFLAGS)
 	$(STRIP) $(SFLAGS) $@
 
 clean:

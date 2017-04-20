@@ -35,7 +35,7 @@ int applet_kds_config(struct applet_arg *arg) {
 
   int rv, cfg, cur_sensor, sensors;
 
-  if ( arg->argc != 4 ) {
+  if ( arg->argc < 3 ) {
     fprintf(stderr, "Missing argument!\n");
     return 1;
   }
@@ -47,18 +47,27 @@ int applet_kds_config(struct applet_arg *arg) {
   if ( cur_sensor >= sensors )
     return 1;
 
-  cfg = atoi(arg->argv[3]);
+  if (arg->argc == 4) {
+    cfg = atoi(arg->argv[3]);
 
-  rv = kds_configure((struct s_usb_device *)arg->u, cur_sensor, cfg);
-  if ( rv == 0 ) {
-    printf("OK\n");
-    return 0;
+    rv = kds_configure((struct s_usb_device *)arg->u, cur_sensor, cfg);
+    if (rv == 0) {
+      printf("OK\n");
+      return 0;
+    }
+    if ( rv == KDS_ERANGE )
+      fprintf(stderr, "Invalid argument!\n");
+    else
+      fprintf(stderr, "Error %d!\n", rv);
+    return 1;
   }
-  if ( rv == KDS_ERANGE )
-    fprintf(stderr, "Invalid argument!\n");
-  else
-    fprintf(stderr, "Error %d!\n", rv);
-
+  if (arg->argc == 3) {
+    rv = kds_configure_get((struct s_usb_device *)arg->u, cur_sensor, &cfg);
+    if (!rv) {
+      printf("S:%i C: %i.\n", cur_sensor, cfg);
+      return 0;
+    }
+  }
   return 1;
 }
 

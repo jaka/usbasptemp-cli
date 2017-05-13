@@ -21,4 +21,4 @@ $(TARGET): $(OBJECTS) $(TARGET).c
 
 clean:
 	rm -fr $(OBJECTS)
-	rm -f $(TARGETS)
+	rm -f $(TARGET)
